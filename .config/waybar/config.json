@@ -1,0 +1,159 @@
+{
+  "position": "top",
+    "margin-top" : 2,
+    "margin-left": 10,
+    "margin-right": 10,
+    "height" : 28,
+    "modules-left": [
+      "hyprland/workspaces"
+    ],
+    "modules-center": [
+    "cpu",
+    "memory",
+    "temperature",
+    "backlight"
+    ],
+    "modules-right": [
+    "pulseaudio",
+    "pulseaudio#mic",
+    "hyprland/language",
+    "network",
+    "battery",
+    "clock",
+    "custom/exit"
+    ],
+      "hyprland/window": {
+      "format": "{}",
+      "max-length": 35,
+      "rewrite": {
+        "": "Hyprland"
+      },
+      "separate-outputs": true
+    },
+    "hyprland/workspaces": {
+      "format": "{icon}",
+      "on-click": "activate",
+      "format-icons": {
+        "active": ""
+      },
+      "sort-by-number": true,
+      "persistent-workspaces": {
+        "*": 4,
+        "HDMI-A-1": 3
+      }
+    },
+
+    "backlight": {
+      "device": "intel_backlight", // Replace with your actual backlight device (e.g., "amdgpu_bl0")
+      "format": "{icon} <b>{percent}%</b>",
+      "tooltip": false,
+      "format-icons": ["", ""], // Icons for different brightness levels (optional)
+      "on-scroll-up": "brightnessctl s 1%+",
+      "on-scroll-down": "brightnessctl --min-value=21 s 1%-",
+      "on-click-right": "brightnessctl s 21", // Optional: set brightness to 0 on right-click
+      "on-click": "brightnessctl s 246"
+    },
+    "clock": {
+      "format": "<b>{:%H:%M}</b>",
+      "tooltip-format": "<big><span color ='#4f58d6'>{:%d %A}</span></big>\n<tt>{calendar}</tt>",
+      "format-alt": "<b>{:%d|%m|%Y}</b>",
+      "on-scroll": "",
+      "calendar": {
+                "on-scroll": 1,
+            		"mode": "month",
+            		"format": {
+                      "weeks": "W{}",
+                	    "months": "<span color='#d0a4eb'><b>{}</b></span>",
+                      "days": "<span color='#cdd6f4'><b>{}</b></span>",
+                	    "weekdays": "<span color='#65968e'><b>{}</b></span>",
+                	    "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            	}
+            }
+    },
+  
+    "cpu": {
+      "format": "  <b>{usage}%</b>",    
+      "interval": 2              
+    },
+    "memory": {
+      "format": "  <b>{used:0.1f}G</b>" ,
+      "tooltip-format": "{used:0.1f}G/24G"
+    },
+    "temperature": {
+      "critical-threshold": 80,
+      "format": "{icon} <b>{temperatureC}°C</b>",
+      "format-icons": ["", "", ""],
+      "tooltip": false
+    },
+    "battery": {
+      "interval": 3,
+      "states": {
+        "warning": 30,
+        "critical": 15
+      },
+      "format": "{icon}  <b>{capacity}%</b>",
+      "format-full": "{icon}  <b>{capacity}%</b>",
+      "format-charging": " {capacity}%",
+      "format-plugged": "  {capacity}%",
+      "format-alt": "{icon}  {time}",
+      "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+      "format-wifi": "  <b>{signalStrength}%</b>",
+      "format-ethernet": "<b>{ifname}</b> ",
+      "tooltip-format-wifi": "<b>SSID: {essid}</b>",
+      "tooltip-format-disconnected": "<b>No internet connection</b>",
+      "tooltip-format-ethernet": "<b>{cidr}</b>",
+      "format-linked": "<b>{ifname}</b> ",
+      "tooltip-format-linked": "<b>(No IP) {cidr}</b>",
+      "format-disconnected": "  ⚠", 
+      "on-click": "nmcli networking off && nmcli networking on",
+      "on-click-right": "kitty nmtui"
+    },
+    "hyprland/language": {
+    "format-ru": " <b>RU</b> ", 
+    "format-en": " <b>EN</b> "
+    },
+    "pulseaudio": {
+      "min-length": 6,
+      "format": "{icon}  <b>{volume}%</b>",
+      "format-bluetooth": " {icon}  <b>{volume}%</b>",
+      "format-bluetooth-muted": "  <b>{volume}%</b>",
+      "format-muted": " <b>{volume}%</b>",
+      "on-click-right": "pavucontrol",
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["", "", ""]
+      },
+      "smooth-scrolling-threshold": 1,
+      "on-scroll-up": "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+",
+      "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-",
+      "max-volume": 150,
+      "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+
+    },
+
+    "pulseaudio#mic": {
+    "format-source": " <b>{volume}%</b>",
+    "format-source-muted": " <b>{volume}%</b>",
+    "format": "{format_source}",
+    "smooth-scrolling-threshold": 1,
+    "max-volume": 150,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click-right": "pavucontrol",
+    "on-scroll-up": "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SOURCE@ 1%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-",
+    
+},
+
+    "custom/exit": {
+        "format": " ",
+        "on-click": "wlogout",
+        "tooltip": false
+    }
+}

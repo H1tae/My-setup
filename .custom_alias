@@ -1,0 +1,3 @@
+alias setupsync='sudo cp -r ~/.config/fastfetch ~/MySetup/.config ; sudo cp -r ~/.custom_alias ~/MySetup ; sudo cp -r ~/.config/hypr ~/MySetup/.config ;sudo cp -r ~/.config/kitty ~/MySetup/.config ; sudo cp -r ~/.config/waybar ~/MySetup/.config ; sudo cp -r ~/.zshrc ~/MySetup ; sudo cp -r ~/.oh-my-zsh ~/MySetup ; sudo cp -r ~/Pictures ~/MySetup ; sudo cp -r ~/Videos ~/MySetup ; sudo cp -r ~/Documents ~/MySetup ; sudo cp -r ~/Desktop ~/MySetup ; sudo yay -Qq > ~/MySetup/pckgs.txt'
+alias info='fastfetch'
+fastfetch
