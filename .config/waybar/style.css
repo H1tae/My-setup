@@ -2,41 +2,86 @@
 
 * {
   font-family: "JetBrains Mono", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 35px;
+  font-size: 35px;  
+  padding-bottom: 4px;
 }
+
 
 window#waybar {
   background-color: @base;
   border-radius: 13px;
+  border-bottom: 5px solid #61afef;   
   transition-property: background-color;
   transition-duration: 0.5s;
 }
 
 tooltip {
     border-radius: 10px; /* Rounded corners */
+    border: 1px solid #dcdfe0;
     background-color: @base;
     padding: 15px; /* Padding inside the tooltip */
-    color: #dcdfe0
+    color: #dcdfe0;
+    margin-bottom: 0px;
 }
 
-button {
-  /* Use box-shadow instead of border so the text isn't offset */
-  box-shadow: inset 0 -3px transparent;
-  /* Avoid rounded borders under each button name */
-  border: none;
-  border-radius: 0;
+#workspaces button {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 6px;
+  padding-top: 12px;
+  color: @rosewater;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 4px;
 }
 
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-button:hover {
-  background: inherit;
-  box-shadow: inset 0 -3px #ffffff;
+#workspaces button:hover {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
 }
 
+#workspaces button.focused {
+  background-color: @rosewater;
+  border-radius: 10px;
+  color: @base;
+}
+
+#workspaces button.urgent {
+  background-color: #bf83c0;
+  border-radius: 10px;
+  color: @base;
+}
+
+#custom-capslock{
+  /*color: #99e9c1;*/
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+#custom-logo{
+  color: #61afef;
+  font-size: 50;
+  margin-right: 35px;
+  margin-left: 5px;
+}
 
 #custom-exit{
-  color: #a3c8b0
+  color: #61afef;
+  font-size: 40;
+  padding-left: 17px;
+  padding-right: 4px;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 40px;
+  border: 4px solid #61afef;
 }
+#custom-exit:hover{
+   border: 4px solid rgba(0, 0, 0, 0.5);
+   background:  #61afef;
+   color: rgba(0, 0, 0, 0.8);
+  }
 
 #language {
   color: #dab1d6
@@ -56,44 +101,60 @@ button:hover {
 
 #network:hover {
   background: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-}
-
-#workspaces button {
-  padding: 0 10px;
-  background-color: transparent;
-  color: @rosewater;
-}
-
-#workspaces button:hover {
-  background: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-}
-
-#workspaces button.focused {
-  background-color: @rosewater;
-  color: @base;
-  box-shadow: inset 0 -3px #ffffff;
-}
-
-#workspaces button.urgent {
-  background-color: #bf83c0;
   border-radius: 10px;
 }
 
-#mode {
-  background-color: #64727d;
-  box-shadow: inset 0 -3px #ffffff;
+
+
+#custom-monitor{
+  padding-right: 20px;
+  padding-left: 20px;
+  color:  #ce89d7;
 }
 
+menu{
+  background: @base;
+  border-radius: 10px;
+  border: 5px solid #61afef;
+  box-shadow: none;
+  outline: none;
 
+} 
+
+menuitem{
+  color: #ce89d7;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+menuitem:hover{
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  box-shadow: none;
+}
+
+/* #mode {
+  background-color: #64727d;
+  box-shadow: inset 0 -3px #ffffff;
+} */
+
+
+/* #custom/gpu, */
 #cpu,
 #memory {
   padding-right: 20px;
   padding-left: 20px;
 }
-
-
+/* #custom/gpu:hover, */
+#cpu:hover,
+#memory:hover {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
 
 #network {
   padding-right: 10px;
@@ -105,6 +166,13 @@ button:hover {
   padding-left: 20px;
 }
 
+#battery:hover {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+
+
 #pulseaudio {
   padding-right: 10px;
   padding-left: 20px;
@@ -113,6 +181,21 @@ button:hover {
 #temperature {
   padding-left: 15px;
   padding-right: 20px;
+}
+
+#temperature:hover {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+#bluetooth {
+  padding-right: 20px;
+  padding-left: 20px;
+  font-size: 40px;
+  color: #5693f5;
+}
+#bluetooth:hover{
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 
 #pulseaudio {
@@ -133,13 +216,17 @@ button:hover {
 
 #clock {
   color: @flamingo;
-  padding-right: 25px;
-  padding-left: 10
+  padding-right: 15px;
+  padding-left: 10px;
+}
+
+#clock-calendar-today{
+  
 }
 
 #cpu {
   color: @peach;
-  padding-right: 20px
+  padding-right: 20px;
 }
 
 #memory {
@@ -148,25 +235,28 @@ button:hover {
 }
 
 #window {
-  color: @text;
+  padding-left: 20px;
+  color: #8abcbb;
 }
+
+
 .modules-right,
 .modules-left,
 .modules-center {
   background-color: @base;
-  border-radius: 15px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 .modules-right {
-  padding: 0 10px;
+  padding-left: 10px;
+  margin-right: 10px;
 }
 
 .modules-left {
-  padding: 0 20px;
+  padding-left: 10px;
 }
 
-.modules-center {
-  padding: 0 10px;
-}
 #battery.charging,
 #battery.plugged {
   color: @green;
@@ -177,6 +267,7 @@ button:hover {
     color: #000000;
   }
 }
+
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
@@ -192,8 +283,4 @@ button:hover {
 
 label:focus {
   background-color: #000000;
-}
-
-#pulseaudio.muted {
-  color: @text;
 }

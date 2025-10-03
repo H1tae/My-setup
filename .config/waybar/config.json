@@ -5,36 +5,83 @@
     "margin-right": 10,
     "height" : 28,
     "modules-left": [
-      "hyprland/workspaces"
+      "custom/logo",
+      "hyprland/workspaces",
+      "hyprland/window"
     ],
     "modules-center": [
+    "custom/monitor",
     "cpu",
     "memory",
+    // "custom/gpu",
     "temperature",
     "backlight"
     ],
     "modules-right": [
+    "bluetooth",
     "pulseaudio",
     "pulseaudio#mic",
+    "custom/capslock",
     "hyprland/language",
     "network",
     "battery",
     "clock",
     "custom/exit"
     ],
+
+//   "custom/gpu": {
+//    "format": "{icon} {}%",
+//    "format-icons": "󰾲",
+//    "on-click": ""
+// }
+
+
+    "custom/monitor":{
+      "format" : "󱄄  {text}",
+      "tooltip": false,
+      "exec": "~/.config/waybar/scripts/rate.sh",
+      "signal": 1,
+      "menu": "on-click",
+      "menu-file": "~/.config/waybar/scripts/monitor.xml",
+      "menu-actions": {
+        "60": "echo 60 > ~/.config/hypr/rate.txt ; pkill -RTMIN+1 waybar ",
+        "120": "echo 120 > ~/.config/hypr/rate.txt ; pkill -RTMIN+1 waybar  ",
+        "165": "echo 165 > ~/.config/hypr/rate.txt ; pkill -RTMIN+1 waybar  "
+		  }
+
+    },
+
       "hyprland/window": {
       "format": "{}",
-      "max-length": 35,
+      "max-length": 20,
+      "icon": true,
+      "icon-size": 40,
       "rewrite": {
-        "": "Hyprland"
       },
       "separate-outputs": true
     },
+
+    "custom/logo": {
+      "format": "",
+      "tooltip": false,
+      "on-click": "code ~/.config/"
+    },
+
     "hyprland/workspaces": {
       "format": "{icon}",
       "on-click": "activate",
       "format-icons": {
-        "active": ""
+        "active": "",
+        "1": "<b>1</b>",
+        "2": "<b>2</b>",
+        "3": "<b>3</b>",
+        "4": "<b>4</b>",
+        "5": "<b>5</b>",
+        "6": "<b>6</b>",
+        "7": "<b>7</b>",
+        "8": "<b>8</b>",
+        "9": "<b>9</b>",
+        "10": "<b>10</b>"    
       },
       "sort-by-number": true,
       "persistent-workspaces": {
@@ -47,17 +94,17 @@
       "device": "intel_backlight", // Replace with your actual backlight device (e.g., "amdgpu_bl0")
       "format": "{icon} <b>{percent}%</b>",
       "tooltip": false,
-      "format-icons": ["", ""], // Icons for different brightness levels (optional)
+      "smooth-scrolling-threshold": 1,
+      "format-icons": ["",  "", "", "", "", "", "", "", "", "", "", "", "", ""], // Icons for different brightness levels (optional)
       "on-scroll-up": "brightnessctl s 1%+",
       "on-scroll-down": "brightnessctl --min-value=21 s 1%-",
       "on-click-right": "brightnessctl s 21", // Optional: set brightness to 0 on right-click
-      "on-click": "brightnessctl s 246"
+      "on-click": "brightnessctl s 171"
     },
     "clock": {
       "format": "<b>{:%H:%M}</b>",
-      "tooltip-format": "<big><span color ='#4f58d6'>{:%d %A}</span></big>\n<tt>{calendar}</tt>",
+      "tooltip-format": "<big><span color ='#6770e6'><b>{:%d %A}</b></span></big>\n<tt>{calendar}</tt>",
       "format-alt": "<b>{:%d|%m|%Y}</b>",
-      "on-scroll": "",
       "calendar": {
                 "on-scroll": 1,
             		"mode": "month",
@@ -66,38 +113,58 @@
                 	    "months": "<span color='#d0a4eb'><b>{}</b></span>",
                       "days": "<span color='#cdd6f4'><b>{}</b></span>",
                 	    "weekdays": "<span color='#65968e'><b>{}</b></span>",
-                	    "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+                	    "today": "<span color='#ff6699'><b>{}</b></span>"
             	}
             }
+    },
+
+    "bluetooth": {
+      "format-on": "󰂯",
+      "format-off": "󰂲",
+      "format":"󰂱",
+      "format-disabled": "󰂲",
+      "interval": 1,
+      "tooltip": false,
+      "on-click-right": "blueman-manager",
+      "on-click": "rfkill toggle bluetooth",
+      "format-connected-battery":"{icon} <b>{device_battery_percentage}%</b>",
+      "format-icons": ["󰥇", "󰤾", "󰤿", "󰥀", "󰥁", "󰥂", "󰥃", "󰥄", "󰥅", "󰥆", "󰥉"]
     },
   
     "cpu": {
       "format": "  <b>{usage}%</b>",    
-      "interval": 2              
+      "interval": 1,
+      "on-click": "kitty btop"              
     },
     "memory": {
       "format": "  <b>{used:0.1f}G</b>" ,
-      "tooltip-format": "{used:0.1f}G/24G"
+      "tooltip-format": "{used:0.1f}G/22.9G",
+      "on-click": "kitty btop"
     },
     "temperature": {
       "critical-threshold": 80,
+      "interval": 1,
+      "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
       "format": "{icon} <b>{temperatureC}°C</b>",
       "format-icons": ["", "", ""],
-      "tooltip": false
+      "on-click": "kitty btop"
     },
     "battery": {
-      "interval": 3,
+      "interval": 1,
       "states": {
         "warning": 30,
         "critical": 15
       },
-      "format": "{icon}  <b>{capacity}%</b>",
-      "format-full": "{icon}  <b>{capacity}%</b>",
-      "format-charging": " {capacity}%",
-      "format-plugged": "  {capacity}%",
-      "format-alt": "{icon}  {time}",
-      "format-icons": ["", "", "", "", ""]
+      "format": "{icon} <b>{capacity}%</b>",
+      "format-full": "{icon} <b>{capacity}%</b>",
+      "format-charging": "󰂄 <b>{capacity}%</b>",
+      "format-plugged": " <b>{capacity}%</b>",
+      // "format-alt": "{iscon}  {time}",
+      // "format-icons": ["", "", "", "", ""],
+      "format-icons": ["󰂃", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+      "on-click": "kitty tlpui"
     },
+    
     "network": {
       "format-wifi": "  <b>{signalStrength}%</b>",
       "format-ethernet": "<b>{ifname}</b> ",
@@ -107,26 +174,37 @@
       "format-linked": "<b>{ifname}</b> ",
       "tooltip-format-linked": "<b>(No IP) {cidr}</b>",
       "format-disconnected": "  ⚠", 
-      "on-click": "nmcli networking off && nmcli networking on",
-      "on-click-right": "kitty nmtui"
+      "on-click": "networkmanager_dmenu",
+      "on-click-right": "nmcli networking off && nmcli networking on"
     },
+
+
     "hyprland/language": {
     "format-ru": " <b>RU</b> ", 
     "format-en": " <b>EN</b> "
     },
+
+    "custom/capslock": {
+      "exec": "~/.config/waybar/scripts/capslock.sh",
+      "format":"{text}",
+      "interval": 1,
+      "tooltip": false
+    },
+    
+
     "pulseaudio": {
-      "min-length": 6,
-      "format": "{icon}  <b>{volume}%</b>",
-      "format-bluetooth": " {icon}  <b>{volume}%</b>",
-      "format-bluetooth-muted": "  <b>{volume}%</b>",
-      "format-muted": " <b>{volume}%</b>",
+      "min-length": 5.5,
+      "format": "{icon} <b>{volume}%</b>",
+      "format-bluetooth": "󰂯 {icon} <b>{volume}%</b>",
+      "format-bluetooth-muted": "󰂯  <b>{volume}%</b>",
+      "format-muted": " <b>{volume}%</b>",
       "on-click-right": "pavucontrol",
       "format-icons": {
         "headphone": "",
-        "hands-free": "",
-        "headset": "",
+        "hands-free": "󰓃",
+        "headset": "",
         "phone": "",
-        "portable": "",
+        "portable": "",
         "car": "",
         "default": ["", "", ""]
       },
@@ -134,7 +212,7 @@
       "on-scroll-up": "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+",
       "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-",
       "max-volume": 150,
-      "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+      "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 
     },
 
